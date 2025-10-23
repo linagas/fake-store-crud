@@ -11,7 +11,6 @@ import { ProductModalData } from 'src/app/core/models/product';
 export class ProductModalComponent {
   readonly mode = this.data.mode;
 
-  // Naming claro: 'productForm' con controles del dominio
   readonly productForm = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3)]],
     price: [
