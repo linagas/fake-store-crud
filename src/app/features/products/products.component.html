@@ -1,0 +1,47 @@
+<mat-progress-bar *ngIf="(productsViewModel$ | async)?.isLoading" mode="indeterminate"></mat-progress-bar>
+
+<div class="container">
+  <div class="toolbar">
+    <h1>Productos</h1>
+    <span class="spacer"></span>
+    <button mat-flat-button color="primary" (click)="openCreateProductDialog()">
+      <mat-icon>add</mat-icon>
+      Nuevo
+    </button>
+  </div>
+
+  <mat-form-field appearance="outline" class="filter">
+    <mat-label>Buscar</mat-label>
+    <input matInput [(ngModel)]="searchTerm" placeholder="Título o categoría" />
+    <button mat-icon-button matSuffix *ngIf="searchTerm" (click)="searchTerm = ''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <div class="grid">
+    <mat-card class="card" *ngFor="let product of (productsViewModel$ | async)?.products">
+      <div class="thumb">
+        <img [src]="product.image" [alt]="product.title" />
+      </div>
+
+      <mat-card-content>
+        <div class="title" [title]="product.title">{{ product.title }}</div>
+        <div class="meta">
+          <mat-chip color="primary" selected>{{ product.category }}</mat-chip>
+          <div class="price">\${{ product.price | number: '1.2-2' }}</div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-stroked-button color="primary" (click)="openEditProductDialog(product)">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </button>
+        <button mat-stroked-button color="warn" (click)="confirmDeleteProduct(product)">
+          <mat-icon>delete</mat-icon>
+          Eliminar
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
