@@ -16,19 +16,21 @@ import { MatIconModule } from '@angular/material/icon';
 import { ProductsComponent } from './products/products.component';
 import { ProductModalComponent } from './product-modal/product-modal.component'
 import { ConfirmDeleteModalComponent } from './confirm-delete-modal/confirm-delete-modal.component';
+import { RouterModule } from '@angular/router';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
     ProductsComponent,
     ProductModalComponent,
     ConfirmDeleteModalComponent,
-    ProductModalComponent
+    ProductModalComponent,
+    ProductDetailComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    // Material
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -38,7 +40,8 @@ import { ConfirmDeleteModalComponent } from './confirm-delete-modal/confirm-dele
     MatSnackBarModule,
     MatProgressBarModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    RouterModule
   ],
   exports: [ProductsComponent]
 })

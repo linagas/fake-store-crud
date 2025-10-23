@@ -79,6 +79,11 @@ export class ProductsService {
     return this.productsSubject.value.find(x => x.id === id) ?? null;
   }
 
+  fetchById(id: number) {
+  return this.http.get<Product>(`${environment.apiBaseUrl}/products/${id}`);
+}
+
+
   // ---------- helpers
   private persist(): void {
     // 5) Debounce para no escribir en cada tecla
