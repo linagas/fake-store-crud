@@ -1,27 +1,60 @@
-# FakeStoreCrud
+# 🛍️ FakeStore CRUD
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
 
-## Development server
+- CRUD temporal desarrollado en Angular 14 + Material usando la FakeStoreAPI
+como fuente de datos.
+Permite crear, editar y eliminar productos de forma local, con persistencia temporal en localStorage.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Demo
+👉 [https://fake-store-crud.netlify.app](https://fake-store-crud-9fx32s1k5-leiladip33-gmailcoms-projects.vercel.app/)
 
-## Code scaffolding
+## ✅ Checklist 
+- Angular 14 + Material
+- CRUD temporal con FakeStoreAPI
+- localStorage persistente
+- UX con animación flip + ícono guía
+- Responsive design
+- Deploy listo para revisión
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🧩 Estructura del proyecto
 
-## Build
+src/
+ ├── app/
+ │   ├── core/
+ │   │   └── services/         # ProductsService, ToastService, etc.
+ │   ├── features/
+ │   │   ├── products/ # Lista principal
+ │   │   ├── product-detail/       # Vista individual
+ │   │   └── product-modal/       # Modales de crear/editar/eliminar
+ │                     
+ │   └── app-routing.module.ts
+ └── environments/
+     ├── environment.ts
+     └── environment.prod.ts
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🧠 Cómo ejecutar localmente
+### 1️⃣ Instalar dependencias
+- `npm install`
+### 2️⃣ Iniciar servidor de desarrollo
+- `ng serve` Luego abre http://localhost:4200/
+La aplicación recarga automáticamente ante cambios en los archivos fuente.
 
-## Running unit tests
+## 🏗️ Build para producción
+- `ng build --configuration production` El resultado se genera en la carpeta dist/fake-store-crud/
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 💡 Notas técnicas
 
-## Running end-to-end tests
+Los datos se obtienen de FakeStoreAPI y se almacenan en localStorage.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+El CRUD es temporal: los cambios se mantienen solo hasta que se recarga la página.
 
-## Further help
+La lógica del servicio sigue un patrón reactivo con BehaviorSubject para mantener estado en memoria.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+El deploy se configuró con vercel.json 
+
+## 📜 Licencia
+    Este proyecto fue desarrollado con fines educativos y de evaluación técnica.
+Licencia: MIT
+
+
