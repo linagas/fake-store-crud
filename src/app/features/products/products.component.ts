@@ -79,7 +79,7 @@ export class ProductsComponent implements OnInit {
     this.cancelHover(id);
     this.hoverTimers[id] = setTimeout(() => {
       this.hoveredCards[id] = true;
-    }, 2500); // 5 segundos
+    }, 2500); 
   }
 
   cancelHover(id: number): void {

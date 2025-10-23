@@ -95,9 +95,9 @@ export class ProductsService {
     return this.http.get<Product>(`${environment.apiBaseUrl}/products/${id}`);
   }
 
-  // ---------- helpers
+  
   private persist(): void {
-    // 5) Debounce para no escribir en cada tecla
+    
     clearTimeout(this.persistTimer);
     this.persistTimer = setTimeout(() => {
       this.setLocal(LS_PRODUCTS_WORKING, this.productsSubject.value);
@@ -108,7 +108,6 @@ export class ProductsService {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch {
-      // cuota llena o deshabilitado: no romper la app
       this.error$.next('No fue posible persistir datos localmente.');
     }
   }
