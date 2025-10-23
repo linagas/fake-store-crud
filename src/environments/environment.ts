@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://fakestoreapi.com'
+  apiBaseUrl: 'https://fakestoreapi.com',
 };
 
 /*

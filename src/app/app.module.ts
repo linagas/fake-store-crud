@@ -17,15 +17,13 @@ import { ProductsModule } from './features/products.module';
 
 export function appInitFactory(products: ProductsService) {
   return async () => {
-    products.resetWorking();  
+    products.resetWorking();
     await products.init();
   };
 }
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -34,16 +32,16 @@ export function appInitFactory(products: ProductsService) {
     MatToolbarModule,
     MatIconModule,
     ProductsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [
     {
       provide: APP_INITIALIZER,
       useFactory: appInitFactory,
       deps: [ProductsService],
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

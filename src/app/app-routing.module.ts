@@ -6,11 +6,13 @@ import { ProductDetailComponent } from './features/product-detail/product-detail
 const routes: Routes = [
   { path: '', component: ProductsComponent },
   { path: 'products/:id', component: ProductDetailComponent },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' })],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
+  ],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -1,4 +1,7 @@
-<mat-progress-bar *ngIf="(productsViewModel$ | async)?.isLoading" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar
+  *ngIf="(productsViewModel$ | async)?.isLoading"
+  mode="indeterminate"
+></mat-progress-bar>
 
 <div class="container">
   <div class="toolbar">
@@ -12,40 +15,57 @@
 
   <mat-form-field appearance="outline" class="filter">
     <mat-label>Buscar</mat-label>
-    <input matInput [formControl]="searchControl" placeholder="Título o categoría" />
-    <button mat-icon-button matSuffix *ngIf="searchControl.value" (click)="searchControl.setValue('')">
+    <input
+      matInput
+      [formControl]="searchControl"
+      placeholder="Título o categoría"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      *ngIf="searchControl.value"
+      (click)="searchControl.setValue('')"
+    >
       <mat-icon>close</mat-icon>
     </button>
-</mat-form-field>
+  </mat-form-field>
 
   <div class="grid">
-  <mat-card class="card" 
-            *ngFor="let product of (productsViewModel$ | async)?.products"
-            (mouseenter)="startHover(product.id)" 
-            (mouseleave)="cancelHover(product.id)"
-            [class.flipped]="hoveredCards[product.id]">
+    <mat-card
+      class="card"
+      *ngFor="let product of (productsViewModel$ | async)?.products"
+      (mouseenter)="startHover(product.id)"
+      (mouseleave)="cancelHover(product.id)"
+      [class.flipped]="hoveredCards[product.id]"
+    >
+      <div class="card-inner">
+        <!-- Frente -->
+        <div class="front">
+          <a
+            class="thumb"
+            [routerLink]="['/products', product.id]"
+            aria-label="Ver detalle"
+          >
+            <img [src]="product.image" [alt]="product.title" />
+          </a>
+          <mat-card-content>
+            <a class="title" [routerLink]="['/products', product.id]">{{
+              product.title
+            }}</a>
+            <div class="meta">
+              <mat-chip color="primary" selected>{{
+                product.category
+              }}</mat-chip>
+              <div class="price">\${{ product.price | number: "1.2-2" }}</div>
+            </div>
+          </mat-card-content>
+        </div>
 
-    <div class="card-inner">
-
-      <!-- Frente -->
-      <div class="front">
-        <a class="thumb" [routerLink]="['/products', product.id]" aria-label="Ver detalle">
-          <img [src]="product.image" [alt]="product.title" />
-        </a>
-        <mat-card-content>
-          <a class="title" [routerLink]="['/products', product.id]">{{ product.title }}</a>
-          <div class="meta">
-            <mat-chip color="primary" selected>{{ product.category }}</mat-chip>
-            <div class="price">\${{ product.price | number: '1.2-2' }}</div>
-          </div>
-        </mat-card-content>
+        <!-- Reverso -->
+        <div class="back" [routerLink]="['/products', product.id]">
+          <mat-icon class="eye-icon">visibility</mat-icon>
+        </div>
       </div>
-
-      <!-- Reverso -->
-      <div class="back" [routerLink]="['/products', product.id]">
-        <mat-icon class="eye-icon">visibility</mat-icon>
-      </div>
-
-    </div>
-  </mat-card>
+    </mat-card>
+  </div>
 </div>

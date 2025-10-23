@@ -1,15 +1,20 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, firstValueFrom, Subject } from 'rxjs';
-import { LS_PRODUCTS_BASELINE, LS_PRODUCTS_WORKING } from '../constants/storage-keys';
+import {
+  LS_PRODUCTS_BASELINE,
+  LS_PRODUCTS_WORKING,
+} from '../constants/storage-keys';
 import { Product } from '../models/product';
 import { environment } from '../../../environments/environment';
 
-
-
 function safeParse<T>(raw: string | null): T | null {
   if (!raw) return null;
-  try { return JSON.parse(raw) as T; } catch { return null; }
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    return null;
+  }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -28,20 +33,27 @@ export class ProductsService {
   async init(): Promise<void> {
     this.isLoading$.next(true);
     try {
-      const baseline = await firstValueFrom(this.http.get<Product[]>(this.apiUrl));
+      const baseline = await firstValueFrom(
+        this.http.get<Product[]>(this.apiUrl),
+      );
       this.setLocal(LS_PRODUCTS_BASELINE, baseline);
 
-      const working = safeParse<Product[]>(localStorage.getItem(LS_PRODUCTS_WORKING)) ?? baseline;
+      const working =
+        safeParse<Product[]>(localStorage.getItem(LS_PRODUCTS_WORKING)) ??
+        baseline;
       this.productsSubject.next(working);
-      this.persist(); 
+      this.persist();
     } catch (err) {
-      
-      const cachedBaseline = safeParse<Product[]>(localStorage.getItem(LS_PRODUCTS_BASELINE));
+      const cachedBaseline = safeParse<Product[]>(
+        localStorage.getItem(LS_PRODUCTS_BASELINE),
+      );
       if (cachedBaseline) {
         this.productsSubject.next(cachedBaseline);
-        this.error$.next('No se pudo actualizar desde la API; usando datos en caché.');
+        this.error$.next(
+          'No se pudo actualizar desde la API; usando datos en caché.',
+        );
       } else {
-        this.productsSubject.next([]); 
+        this.productsSubject.next([]);
         this.error$.next(this.humanizeError(err));
       }
     } finally {
@@ -49,40 +61,39 @@ export class ProductsService {
     }
   }
 
- 
   resetWorking(): void {
     localStorage.removeItem(LS_PRODUCTS_WORKING);
   }
 
- 
   create(p: Omit<Product, 'id'>): void {
     const list = [...this.productsSubject.value];
-    const nextId = Math.max(0, ...list.map(x => x.id ?? 0)) + 1;
+    const nextId = Math.max(0, ...list.map((x) => x.id ?? 0)) + 1;
     list.unshift({ id: nextId, ...p });
     this.productsSubject.next(list);
     this.persist();
   }
 
   update(id: number, patch: Partial<Product>): void {
-    const list = this.productsSubject.value.map(x => (x.id === id ? { ...x, ...patch } : x));
+    const list = this.productsSubject.value.map((x) =>
+      x.id === id ? { ...x, ...patch } : x,
+    );
     this.productsSubject.next(list);
     this.persist();
   }
 
   delete(id: number): void {
-    const list = this.productsSubject.value.filter(x => x.id !== id);
+    const list = this.productsSubject.value.filter((x) => x.id !== id);
     this.productsSubject.next(list);
     this.persist();
   }
 
   getById(id: number): Product | null {
-    return this.productsSubject.value.find(x => x.id === id) ?? null;
+    return this.productsSubject.value.find((x) => x.id === id) ?? null;
   }
 
   fetchById(id: number) {
-  return this.http.get<Product>(`${environment.apiBaseUrl}/products/${id}`);
-}
-
+    return this.http.get<Product>(`${environment.apiBaseUrl}/products/${id}`);
+  }
 
   // ---------- helpers
   private persist(): void {
@@ -107,5 +118,5 @@ export class ProductsService {
       return `HTTP ${err.status}: ${err.message || 'Error de red'}`;
     }
     return 'Error inesperado al cargar productos.';
-    }
+  }
 }

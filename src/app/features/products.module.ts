@@ -14,7 +14,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 
 import { ProductsComponent } from './products/products.component';
-import { ProductModalComponent } from './product-modal/product-modal.component'
+import { ProductModalComponent } from './product-modal/product-modal.component';
 import { ConfirmDeleteModalComponent } from './confirm-delete-modal/confirm-delete-modal.component';
 import { RouterModule } from '@angular/router';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
@@ -25,7 +25,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     ProductModalComponent,
     ConfirmDeleteModalComponent,
     ProductModalComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -41,8 +41,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     MatProgressBarModule,
     MatChipsModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
   ],
-  exports: [ProductsComponent]
+  exports: [ProductsComponent],
 })
 export class ProductsModule {}

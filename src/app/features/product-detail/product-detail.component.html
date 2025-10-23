@@ -12,7 +12,7 @@
     <div class="info">
       <h1 class="title">{{ product.title }}</h1>
       <mat-chip color="primary" selected>{{ product.category }}</mat-chip>
-      <div class="price">\${{ product.price | number:'1.2-2' }}</div>
+      <div class="price">${{ product.price | number: "1.2-2" }}</div>
 
       <p class="description" *ngIf="product.description as d">{{ d }}</p>
 
@@ -21,7 +21,11 @@
           <mat-icon>edit</mat-icon>
           Editar
         </button>
-        <button mat-stroked-button color="warn" (click)="deleteProduct()">
+        <button
+          mat-stroked-button
+          color="warn"
+          (click)="confirmDeleteProduct(product)"
+        >
           <mat-icon>delete</mat-icon>
           Eliminar
         </button>

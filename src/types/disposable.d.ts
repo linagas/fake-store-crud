@@ -1,7 +1,4 @@
-// Declaraciones de tipos para Symbol.asyncDispose y Symbol.dispose
-// Compatible con Angular 14 y TypeScript 4.7
-
-export {}; 
+export {};
 
 declare global {
   interface SymbolConstructor {

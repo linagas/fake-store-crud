@@ -7,11 +7,12 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { ToastService } from '../../core/services/toast.service';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
+import { ConfirmDeleteModalComponent } from '../confirm-delete-modal/confirm-delete-modal.component';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
   product: Product | null = null;
@@ -22,14 +23,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly productsService: ProductsService,
     private readonly dialog: MatDialog,
-    private readonly toast: ToastService
+    private readonly toast: ToastService,
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.sub = this.productsService.products$
-      .pipe(map(list => list.find(p => p.id === id) ?? null))
-      .subscribe(p => this.product = p);
+      .pipe(map((list) => list.find((p) => p.id === id) ?? null))
+      .subscribe((p) => (this.product = p));
   }
 
   ngOnDestroy(): void {
@@ -43,12 +44,28 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   editProduct(): void {
     if (!this.product) return;
     const data: ProductModalData = { mode: 'edit', product: this.product };
-    this.dialog.open(ProductModalComponent, { data, width: '640px' })
+    this.dialog
+      .open(ProductModalComponent, { data, width: '640px' })
       .afterClosed()
-      .subscribe(draft => {
+      .subscribe((draft) => {
         if (!draft) return;
         this.productsService.update(this.product!.id, draft);
         this.toast.success('Producto actualizado');
+      });
+  }
+
+  confirmDeleteProduct(product: Product): void {
+    this.dialog
+      .open(ConfirmDeleteModalComponent, {
+        data: {
+          title: 'Eliminar producto',
+          message: `¿Eliminar "${product.title}"?`,
+        },
+      })
+      .afterClosed()
+      .subscribe((confirmed) => {
+        if (!confirmed) return;
+        this.deleteProduct();
       });
   }
 

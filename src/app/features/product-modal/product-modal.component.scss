@@ -3,8 +3,12 @@
   gap: 12px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-.full { grid-column: 1 / -1; }
+.full {
+  grid-column: 1 / -1;
+}
 
 @media (max-width: 640px) {
-  .form-grid { grid-template-columns: 1fr; }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
 }

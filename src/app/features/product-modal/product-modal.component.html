@@ -1,11 +1,15 @@
-<h2 mat-dialog-title>{{ mode === 'create' ? 'Nuevo producto' : 'Editar producto' }}</h2>
+<h2 mat-dialog-title>
+  {{ mode === "create" ? "Nuevo producto" : "Editar producto" }}
+</h2>
 
 <mat-dialog-content [formGroup]="productForm" class="form-grid">
   <mat-form-field appearance="outline">
     <mat-label>Título</mat-label>
     <input matInput formControlName="title" />
     <mat-error *ngIf="titleCtrl.hasError('required')">Obligatorio</mat-error>
-    <mat-error *ngIf="titleCtrl.hasError('minlength')">Mínimo 3 caracteres</mat-error>
+    <mat-error *ngIf="titleCtrl.hasError('minlength')"
+      >Mínimo 3 caracteres</mat-error
+    >
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -13,7 +17,9 @@
     <input matInput type="number" formControlName="price" />
     <mat-error *ngIf="priceCtrl.hasError('required')">Obligatorio</mat-error>
     <mat-error *ngIf="priceCtrl.hasError('min')">Debe ser mayor a 0</mat-error>
-    <mat-error *ngIf="priceCtrl.hasError('pattern')">Máximo 2 decimales</mat-error>
+    <mat-error *ngIf="priceCtrl.hasError('pattern')"
+      >Máximo 2 decimales</mat-error
+    >
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -29,9 +35,11 @@
 
   <mat-form-field appearance="outline" class="full">
     <mat-label>Imagen (URL)</mat-label>
-    <input matInput formControlName="image" placeholder="https://..."/>
+    <input matInput formControlName="image" placeholder="https://..." />
     <mat-error *ngIf="imageCtrl.hasError('required')">Obligatorio</mat-error>
-    <mat-error *ngIf="imageCtrl.hasError('pattern')">Debe comenzar con http(s)://</mat-error>
+    <mat-error *ngIf="imageCtrl.hasError('pattern')"
+      >Debe comenzar con http(s)://</mat-error
+    >
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="full">
@@ -42,5 +50,7 @@
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="cancel()">Cancelar</button>
-  <button mat-flat-button color="primary" (click)="saveProduct()">Guardar</button>
+  <button mat-flat-button color="primary" (click)="saveProduct()">
+    Guardar
+  </button>
 </mat-dialog-actions>
